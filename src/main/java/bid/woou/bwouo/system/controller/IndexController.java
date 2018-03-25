@@ -1,4 +1,4 @@
-package bid.woou.bwouo.system;
+package bid.woou.bwouo.system.controller;
 
 /**
  * @Author: zwoou
@@ -14,4 +14,5 @@ public class IndexController {
     public String index(){
         return "index";
     }
+
 }

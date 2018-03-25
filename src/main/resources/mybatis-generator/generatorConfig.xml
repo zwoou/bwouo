@@ -53,7 +53,8 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         <!--表-->
-        <table tableName="user" enableCountByExample="true"
+        <!--表名可以使用sql通配符-->
+        <table tableName="sys_%" enableCountByExample="true"
                enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false"/>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bid.woou.bwouo.system.mapper.CustomUserMapper">
+    <resultMap id="userMap" type="bid.woou.bwouo.system.domain.CustomUser">
+        <id property="userId" column="USER_ID"/>
+        <result property="username" column="username"/>
+        <result property="password" column="PASSWORD"/>
+        <collection property="roles"
+                    ofType="bid.woou.bwouo.common.domain.SysRole">
+            <result column="name" property="name"/>
+        </collection>
+
+    </resultMap>
+    <select id="findByUserName" parameterType="String" resultMap="userMap">
+        SELECT
+            u.*,
+            r.name
+        FROM Sys_User u
+            LEFT JOIN sys_user_role sru ON u.user_id = sru.sys_user_id
+            LEFT JOIN Sys_Role r ON sru.sys_role_id = r.role_id
+        WHERE u.username = #{username}
+    </select>
+</mapper>
