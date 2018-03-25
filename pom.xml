@@ -7,7 +7,8 @@
     <groupId>bid.woou</groupId>
     <artifactId>bwouo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <!--war包-->
+    <packaging>war</packaging>
 
     <name>bwouo</name>
     <description>Demo project for Spring Boot</description>
@@ -27,6 +28,12 @@
     </properties>
 
     <dependencies>
+        <!--替换内置tomcat-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
