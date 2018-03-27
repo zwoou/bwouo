@@ -1,4 +1,4 @@
-package bid.woou.bwouo.system.service.impl;
+package bid.woou.bwouo.system.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.SecurityMetadataSource;

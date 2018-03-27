@@ -54,7 +54,7 @@
         </javaClientGenerator>
         <!--表-->
         <!--表名可以使用sql通配符-->
-        <table tableName="sys_%" enableCountByExample="true"
+        <table tableName="%" enableCountByExample="true"
                enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false"/>

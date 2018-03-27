@@ -1,4 +1,4 @@
-package bid.woou.bwouo.system.service.impl;
+package bid.woou.bwouo.system.security;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -6,12 +6,10 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.FilterInvocation;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * @Author: zwoou
@@ -25,25 +23,17 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     //configAttributes 为MyInvocationSecurityMetadataSource的getAttributes(Object object)这个方法返回的结果，此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
-        HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
-        String url, method;
-        AntPathRequestMatcher matcher;
-        for (GrantedAuthority ga : authentication.getAuthorities()) {
-            if (ga instanceof MyGrantedAuthority) {
-                MyGrantedAuthority urlGrantedAuthority = (MyGrantedAuthority) ga;
-                url = urlGrantedAuthority.getUrl();
-                method = urlGrantedAuthority.getMethod();
-                matcher = new AntPathRequestMatcher(url);
-                if (matcher.matches(request)) {
-                    //当权限表权限的method为ALL时表示拥有此路径的所有请求方式权利。
-                    if (method.equals(request.getMethod()) || "ALL".equals(method)) {
-                        return;
-                    }
-                }
-                //未登录只允许访问 login 页面
-            } else if (ga.getAuthority().equals("ROLE_ANONYMOUS")) {
-                matcher = new AntPathRequestMatcher("/login");
-                if (matcher.matches(request)) {
+        if(null== configAttributes || configAttributes.size() <=0) {
+            return;
+        }
+        ConfigAttribute c;
+        String needRole;
+        for(Iterator<ConfigAttribute> iter = configAttributes.iterator(); iter.hasNext(); ) {
+            c = iter.next();
+            needRole = c.getAttribute();
+            //authentication 为在注释1 中循环添加到 GrantedAuthority 对象中的权限信息集合
+            for(GrantedAuthority ga : authentication.getAuthorities()) {
+                if(needRole.trim().equals(ga.getAuthority())) {
                     return;
                 }
             }
