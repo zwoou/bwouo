@@ -24,3 +24,7 @@ dist/
 nbdist/
 .nb-gradle/
 /src/main/resources/application-prod.properties
+/.classpath
+/.project
+/bwouo.iml
+/.mvn/
