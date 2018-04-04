@@ -21,8 +21,10 @@
 
         <!-- 注释 -->
         <commentGenerator>
-            <property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
             <property name="suppressDate" value="true"/> <!-- 是否生成注释代时间戳-->
+            <!-- 是否  自动为每一个生成的类创建一个构造方法-->
+            <property name="constructorBased" value="false"/>
         </commentGenerator>
 
         <!-- jdbc连接 -->
@@ -54,11 +56,12 @@
         </javaClientGenerator>
         <!--表-->
         <!--表名可以使用sql通配符-->
-        <table tableName="%" enableCountByExample="true"
+ <!--       <table tableName="%" enableCountByExample="true"
                enableUpdateByExample="true" enableDeleteByExample="true"
                enableSelectByExample="true" selectByExampleQueryId="true">
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        </table>-->
+        <table tableName="%"/>
     </context>
 </generatorConfiguration>
